@@ -1,8 +1,4 @@
-<div>
-    <div align=center>
-        <img src="https://github.com/proyectobalam/robofut2024/blob/main/Imagenes/_DSC5055.jpg" alt="Robofut 2024">
-    </div>
-</div>
+
 
 ## Instalación de la Tarjeta ESP32
 
