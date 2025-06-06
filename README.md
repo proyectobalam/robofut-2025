@@ -52,7 +52,7 @@ Nombre | GPIO
 VCC | 5VDC a 12VDC
 VSS | GND
 
-### Motores de movimiento 
+
 Nombre | Motor  | GPIO
 --- | --- | ---
 M1_1   | motor1 | 18
@@ -62,7 +62,6 @@ M2_1   | motor1 | 27
 M2_2   | motor2 | 14
 PWM2   | motorB | 2
 
-### Motores de disparador 
 Nombre | Motor  | GPIO
 --- | --- | ---
 M3_1   | motor3 | 33
