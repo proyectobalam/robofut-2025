@@ -1,99 +1,168 @@
+# Proyecto Balam - Categoría Robofut
+![Robofut](assets/robofut.png)
+
+## Descripción
+
+Este repositorio contiene el código base y la documentación necesaria para participar en Proyecto Balam de la categoría **Robofut**. Cada participante recibe un kit que incluye:
+
+* **Shield** diseñada por nuestro equipo.
+* **ESP32** diseñada por nuestro equipo.
+* Módulo de control de motores TB6612FNG diseñado por nuestro equipo.
+* Base
+* Brackets de Unión
+* Soporte de micro motor
+* Paleta
+* Tornillos necesarios
+* Motores DC (amarillo)
+* Micro DC
+* Ruedas locas
+* Baterías
+
+A continuación encontrarás información sobre el pinout, la instalación, ejemplos de uso y recomendaciones.
+
+---
+
+## Estructura del Repositorio
+El repositorio se divide en las siguientes secciones:
+
+```plaintext
+├── assets/
+│   └── images/                  # Diagramas y recursos gráficos
+├── examples/                    # Ejemplos de uso simplificados
+│   ├── motor_basic/            
+│   │   └── motor_basic.ino      # Movimiento básico de motores
+│   └── bluepad_motor/           
+│       └── bluepad_motor.ino    # Integración Bluepad + motores
+├── libs/                        # Librerías de terceros
+│   ├── TB6612FNG/
+│   └── Battery_Balam/			 # Librería para la revisión de la batería
+└── README.md                    # Documentación principal
+```
+
+## Contenido
+
+* [Hardware](#hardware)
+* [Diagrama de Pines](#diagrama-de-pines)
+* [Instalación](#instalación)
+  * [Arduino IDE](#arduino-ide)
+  * [Driver USB (CH430 / CH340)](#driver-usb-ch430--ch340)
+* [Bibliotecas](#bibliotecas)
+  * [TB6612FNG](#tb6612fng)
+  * [esp32bluepad](#esp32bluepad)
+* [Control de Motores](#control-de-motores)
+* [Uso de Mando (PS4)](#uso-de-mando-ps4)
+* [Recomendaciones](#recomendaciones)
+* [Contribuciones](#contribuciones)
+
+---
+
+## Hardware
+
+* **Shield**: Placa de expansión que facilita la conexión de motores y sensores.
+* **ESP32**: Microcontrolador programable con conectividad Wi-Fi y Bluetooth.
+* **TB6612FNG**: Driver de puente H para control de hasta 4 motores DC.
+
+## Diagrama de Pines
+
+Para incluir tu diagrama de pinout, coloca la imagen en la carpeta `docs/images/` (por ejemplo, renómbrala a `shield_pinout.jpg`). Luego, en esta sección del README, referencia la imagen así:
+
+![Pinout Shield](assets/esp32_pinout.jpeg)
+*Figura 1: Pinout ESP32 diseñada por Tesla Lab*
 
 
-## Instalación de la Tarjeta ESP32
+## Pinout Resumido
 
-Para la instalación en Arduino IDE debemos seguir los siguientes pasos:
+| Conexión    	| Función             | GPIO ESP32 |
+| ----------- 	| ------------------- | ---------- |
+| **M1\_AIN1**	| Motor 1 dirección A | 5          |
+| **M1\_AIN2**	| Motor 1 dirección B | 18         |
+| **M1\_PWM** 	| Motor 1 velocidad   | 15         |
+| **M2\_BIN1** 	| Motor 2 dirección A | 27         |
+| **M2\_BIN2** 	| Motor 2 dirección B | 14         |
+| **M2\_PWM** 	| Motor 2 velocidad   | 2          |
+| **M3\_AIN1** 	| Motor 3 dirección A | 32         |
+| **M3\_AIN2** 	| Motor 3 dirección B | 33         |
+| **M3\_PWM** 	| Motor 3 velocidad   | 12         |
+| **M4\_BIN1** 	| Motor 4 dirección A | 25         |
+| **M4\_BIN2** 	| Motor 4 dirección B | 26         |
+| **M4\_PWM** 	| Motor 4 velocidad   | 13         |
 
-1. Abrir ARDUINO IDE
-2. Debemos ir a la pestaña ***Archivo***->***Preferencias***.
-	- En la pestaña ***Ajustes*** buscamos la opción: ***Gestor de URLs Adicionales de Tarjetas:***
-	- Pegamos la siguiente URL: `https://dl.espressif.com/dl/package_esp32_index.json`
-	- Luego presionamos la opción ***OK*** y automáticamente se cerrará la ventana.
-3. Debemos ir a la pestaña ***Herramientas***->***Placa***->***Gestor de tarjetas***.
-	- Colocamos en la barra de búsqueda ***ESP32***.
-	- Seleccionamos la opción que nos muestre ***ESP32 Dev Module***.
-	- Instalamos y luego presionamos la opción de ***Cerrar***.
+## Instalación
 
-Con esto tendremos completa la instalación de nuestra tarjeta ESP32 y lista para ser programada.	 
+### Arduino IDE
 
-## Instalación USB Driver ***(Si no reconoce el puerto COM)***
+1. Abre **Arduino IDE**.
+2. Ve a **Archivo → Preferencias**.
+3. En **Ajustes**, busca **Gestor de URLs Adicionales de Tarjetas**.
+4. Pega esta URL:
 
-En algunos casos nuestra PC no es capaz de reconocer el dispositivo USB que nosotros conectamos, es por ello que dejaremos un archivo para la instalación del driver con ello nuestra PC deberá ser capaz de reconocer el dispositivo conectado, en caso de que el problema persista asegúrese de que su dispositivo no se este sobre calentando.
+   ```
+   https://dl.espressif.com/dl/package_esp32_index.json, 
+	https://raw.githubusercontent.com/ricardoquesada/esp32-arduino-lib-builder/master/bluepad32_files/package_esp32_bluepad32_index.json
+   ```
+5. Haz clic en **OK**.
+6. Ve a **Herramientas → Placa → Gestor de tarjetas**.
+7. Busca **ESP32**, selecciona **ESP32 Dev Module** e instala.
+8. Busca esp32_bluepad32 de Ricardo Quesada e instala.
 
-[Si deseas conocer más sobre el chip CH430][CH430-PDF]
+### Driver USB (CH430 / CH340)
 
-[CH430-PDF]: https://cdn.sparkfun.com/datasheets/Dev/Arduino/Other/CH340DS1.PDF
+#### CH430 (Windows)
 
-[Descarga este driver para Windows][DRIVER_USB]
+1. Descarga el driver CH430 para Windows.
+2. Descomprime el ZIP o ejecuta el EXE.
+3. Ejecuta **SETUP.exe** y selecciona **CH341SER.INF**.
+4. Haz clic en **Install**.
 
-[DRIVER_USB]: https://cdn.sparkfun.com/assets/learn_tutorials/8/4/4/CH341SER.EXE
+#### CH340 (Alternativa)
 
-1. Descomprimir el archivo ZIP descargado o dar click en el archivo EXE descargado
-2. Seleccionar el archivo para instalación de Windows
-	- SETUP.exe
-3. Seleccionar CH341SER.INF
-4. Click en la opción ***Install***
-5. Cuando este instalado cerrar la ventana y listo.
+* Sigue esta guía: [Instalación driver CH340](https://www.wch.cn/download/CH341SER_EXE.html)
 
-Con esto estaría lista la instalación del Driver USB para nuestra tarjeta en el Sistema Operativo Windows.
+## Bibliotecas
 
-Puede seguir está guía para la instalación como una segunda opción 
+### TB6612FNG
 
-[Sigue la guía para instalar el driver CH340][DRIVER_CH340]
+* Ubicada en la carpeta `lib/TB6612FNG`.
+* Revisa la [hoja de datos de SparkFun](https://www.sparkfun.com/datasheets/BreakoutBoards/TB6612FNG.pdf) para entender su uso.
 
-[DRIVER_CH340]: https://learn.sparkfun.com/tutorials/how-to-install-ch340-drivers/all#drivers-if-you-need-them
+### esp32_bluepad32
+
+La board y librería **esp32_bluepad32** permite usar gamepads Bluetooth (PS4, Xbox, controles genéricos) con la ESP32.
+El ejemplo dado utiliza el ejemplo base de la librería para conectar con distintos controles. Para encontrar más información puedes explorar los siguientes enlaces:
+* Documentación de la librería: https://bluepad32.readthedocs.io/en/latest/
+* Controles compatibles: https://bluepad32.readthedocs.io/en/latest/supported_gamepads/
+* Tutorial para uso de la librería: https://racheldebarros.com/esp32-projects/connect-your-game-controller-to-an-esp32/ 
+
+### Battery_Balam
+Una librería creada por [JoseL-DM](https://github.com/JoseL-DM) en la que se incluye un ejemplo de uso de los módulos de carga
+para encontrar la carga de la batería y mostrarlo en los neopixeles del shield.
+* Repositorio de la librería: https://github.com/JoseL-DM/Battery
+> **_NOTA:_** Puedes encontrar un zip para instalar la librería en la carpeta `lib/Battery_Balam` en el repositorio del proyecto.
 
 
-## Pinout
+## Control de Motores
 
-### Voltaje de alimentación
-Nombre | GPIO 
---- | --- 
-VCC | 5VDC a 12VDC
-VSS | GND
+* **Control digital**: `digitalWrite(IN1, HIGH/LOW)` para dirección.
+* **Control PWM**: `analogWrite(PWM, 0–255)` para velocidad.
 
+## Uso de Control
 
-Nombre | Motor  | GPIO
---- | --- | ---
-M1_1   | motor1 | 18
-M1_2   | motor2 | 5
-PWM1   | motorA | 15
-M2_1   | motor1 | 27
-M2_2   | motor2 | 14
-PWM2   | motorB | 2
+Para emparejar un control (PS4, XBOX, etc):
 
-Nombre | Motor  | GPIO
---- | --- | ---
-M3_1   | motor3 | 33
-M3_2   | motor4 | 32
-PWM3   | motorA | 12
-M4_1   | motor3 | 26
-M4_2   | motor4 | 25
-PWM4   | motorB | 13
-
-## Manejo de motores
-Es muy importante que puedas comprender el manejo de los motores realizando un control digital binario (HIGH y LOW) y un control con PWM (valores entre 0 - 255).
-
-Para comprender mejor el tema es recomendable que puedas revisar la hoja de datos de Sparkfun que es el fabricante del módulo TB6612FNG.
-
-**Recuerda que la libreria "TB6612FNG" la puedes encontrar en la parte de arriba en la carpeta "Librerias"**.
-
-## Control 
-Si deseamos utilizar un mando de PS4 es fundamental configurarlo con la Mac de nuestra tarjeta ESP32, para conocer esta MAC tenemos un código base para poder conocerla.
-
-En el siguiente link encontrás el programa para actualizarle la MAC que debe buscar el control para poder conectarse con tu ESP32.
-
-Link: https://drive.google.com/file/d/1Wk8Bpc0_g7CyR7qsg66rEnvJ_Y3gb378/view
-
+1. Obtén la MAC de la ESP32, puedes utilizar una aplicación o conectarlo a una computadora para encontrar la dirección.
+2. Usa el programa de actualización de MAC:
+   [Descargar](https://drive.google.com/file/d/1Wk8Bpc0_g7CyR7qsg66rEnvJ_Y3gb378/view)
+3. Actualiza la MAC y conecta el mando.
 
 ## Recomendaciones
 
-1. Si tu tarjeta ESP32 esta conectada a la computadora apaga el switch de encendido de la placa de tu robofut para no dañarla. 
-2. Cuando pongás en acción tu RoboFut recuerda tener cargadas tu baterias para un mejor funcionamiento.
-3. Revisa tus conexiones siempre antes de programar.
-4. IMPORTANTE: Colocar con la polaridad correcta las baterias
-<div>
-    <div align=center>
- 	<strong>¡Te animamos a mejorar las programaciones base! Libera toda tu imaginación y creatividad para lograr el máximo rendimiento de tu RoboFut. ¡Sabemos que puedes hacerlo!</strong>
-    </div>
-</div>
+* Desactiva el switch de la placa al conectarla al PC.
+* Asegúrate de baterías suficiente carga
+* Verifica conexiones antes de programar.
+* Revisa la polaridad al colocar baterías.
+
+> **Tip**: ¡Libera tu creatividad y mejora el código base!
+
+---
+
+© 2025 TeslaLab - Grupo Intelecto
