@@ -125,6 +125,12 @@ Para incluir tu diagrama de pinout, coloca la imagen en la carpeta `docs/images/
 
 * Ubicada en la carpeta `lib/TB6612FNG`.
 * Revisa la [hoja de datos de SparkFun](https://www.sparkfun.com/datasheets/BreakoutBoards/TB6612FNG.pdf) para entender su uso.
+  
+### Dabble
+Puedes utilizar tu teléfono como control para la ESP32
+* Descarga la aplicación Dabble para Android o iOS.
+* Revisa la documentación: https://ai.thestempedia.com/docs/dabble-app/getting-started-with-dabble/
+
 
 ### esp32_bluepad32
 
@@ -159,7 +165,7 @@ Para emparejar un control (PS4, XBOX, etc):
 
 * Utiliza la versión 2.0.17 de la ESP32 para evitar problemas de compatibilidad con la librería TB6612FNG.
 * Desactiva el switch de la placa al conectarla al PC.
-* Asegúrate de baterías suficiente carga
+* Asegúrate de que las baterías tengan suficiente carga
 * Verifica conexiones antes de programar.
 * Revisa la polaridad al colocar baterías.
 
