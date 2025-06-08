@@ -171,7 +171,7 @@ void processGamepad(ControllerPtr ctl) {
   }
   if (ctl->buttons() & 0x0002){ 
     motor4.drive(200, 5);  // Triangle
-  }  ≈
+  }  
 
   // Joystick derecho para movimiento:
   int ejeX = ctl->axisRX();  // Horizontal
