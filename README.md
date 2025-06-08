@@ -31,8 +31,8 @@ El repositorio se divide en las siguientes secciones:
 ├── examples/                    # Ejemplos de uso simplificados
 │   ├── motor_basic/            
 │   │   └── motor_basic.ino      # Movimiento básico de motores
-│   └── bluepad_motor/           
-│       └── bluepad_motor.ino    # Integración Bluepad + motores
+│   └── controller_base/           
+│       └── controller_base.ino    # Integración Bluepad + motores
 ├── libs/                        # Librerías de terceros
 │   ├── TB6612FNG/
 │   └── Battery_Balam/			 # Librería para la revisión de la batería
@@ -102,7 +102,8 @@ Para incluir tu diagrama de pinout, coloca la imagen en la carpeta `docs/images/
    ```
 5. Haz clic en **OK**.
 6. Ve a **Herramientas → Placa → Gestor de tarjetas**.
-7. Busca **ESP32**, selecciona **ESP32 Dev Module** e instala.
+7. Busca **ESP32**, selecciona **ESP32 Dev Module** e instala
+> ** NOTA: Para evitar problemas de compatibilidad con la librería TB6612FNG utiliza la versión 2.0.17
 8. Busca esp32_bluepad32 de Ricardo Quesada e instala.
 
 ### Driver USB (CH430 / CH340)
@@ -156,6 +157,7 @@ Para emparejar un control (PS4, XBOX, etc):
 
 ## Recomendaciones
 
+* Utiliza la versión 2.0.17 de la ESP32 para evitar problemas de compatibilidad con la librería TB6612FNG.
 * Desactiva el switch de la placa al conectarla al PC.
 * Asegúrate de baterías suficiente carga
 * Verifica conexiones antes de programar.
