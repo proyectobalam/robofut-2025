@@ -98,11 +98,10 @@ ControllerPtr myControllers[BP32_MAX_GAMEPADS];
 // ------------ Callback: Conexión de Controles ------------
 // Se ejecuta cuando un control Bluetooth se conecta.
 void onConnectedController(ControllerPtr ctl) {
-  // Obtener la dirección Bluetooth del control.
-  ControllerProperties props = ctl->getProperties();
-  const uint8_t* addr = props.btaddr;
+  ControllerProperties properties = ctl->getProperties();
+  const uint8_t* addr = properties.btaddr;
 
-  // Verificar si el control está en la lista permitida.
+  // Verificar si la dirección coincide con la permitida
   bool isAllowed = true;
   for (int i = 0; i < 6; i++) {
     if (addr[i] != allowedAddress[i]) {
@@ -110,19 +109,31 @@ void onConnectedController(ControllerPtr ctl) {
       break;
     }
   }
-  if (!isAllowed) {
-    Serial.println("Control rechazado: dirección no permitida.");
-    return;
-  }
 
+  if (!isAllowed) {
+    Serial.println("CALLBACK: Controller rechazado (address no permitida).");
+    return;  // Salir sin hacer nada
+  }
+  bool foundEmptySlot = false;
   for (int i = 0; i < BP32_MAX_GAMEPADS; i++) {
+    Serial.println("Controller");
+
     if (myControllers[i] == nullptr) {
+      Serial.printf("CALLBACK: Controller is connected, index=%d\n", i);
+     
+      ControllerProperties properties = ctl->getProperties();
+      Serial.printf("Controller model: %s, VID=0x%04x, PID=0x%04x\n", ctl->getModelName().c_str(), properties.vendor_id, properties.product_id);
+      const uint8_t* addr = properties.btaddr;
+      Serial.printf("Address Controler: %2X:%2X:%2X:%2X:%2X:%2X\n", addr[0], addr[1], addr[2], addr[3], addr[4], addr[5]);
       myControllers[i] = ctl;
-      Serial.printf("Control conectado en ranura %d\n", i);
-      return;
+      foundEmptySlot = true;
+      break;
     }
   }
-  Serial.println("Control conectado, pero no hay ranuras libres.");
+
+  if (!foundEmptySlot) {
+    Serial.println("CALLBACK: Controller connected, but could not found empty slot");
+  }
 }
 
 // ------------ Callback: Desconexión de Control ------------
